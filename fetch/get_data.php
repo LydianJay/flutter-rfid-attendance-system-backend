@@ -15,7 +15,7 @@ if (mysqli_connect_error()) {
 
 
 
-$sql = "SELECT * FROM students";
+$sql = "SELECT * FROM students ORDER BY lname ASC";
 
 $result = $conn->query($sql);
 echo json_encode(mysqli_fetch_all($result, MYSQLI_ASSOC));
