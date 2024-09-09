@@ -1,14 +1,15 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "rfid_attendance_system";
+require '../config/config.php';
 
-// Create connection
+$servername = "localhost";
+$username = $_db_user;
+$password = $_db_pass;
+$database = $_db_name;
+
+
 $conn = new mysqli($servername, $username, $password, $database);
 
 
-// Check connection
 if (mysqli_connect_error()) {
     echo "Error";
     die("Connection failed: " . $conn->connect_error);
@@ -18,24 +19,20 @@ $data = json_decode($json_data);
 
 
 
-if($data === null){
+if ($data === null) {
     echo json_last_error_msg();
-}
-else {
+} else {
     $sql = "
     INSERT IGNORE INTO students (rfid, fname, mname, lname, bday, bmonth, byear, gender, courseID) 
     VALUES ('$data->rfid', '$data->fname', '$data->mname', '$data->lname', '$data->bday', '$data->bmonth', '$data->byear', '$data->gender', '$data->courseID')
     ";
-    if($conn->query($sql) === TRUE){
+    if ($conn->query($sql) === TRUE) {
         echo "Insert Success!";
-    }
-    else {
+    } else {
         echo "Insert Error!";
     }
-
 }
 
 
 
 $conn->close();
-?>

@@ -1,9 +1,10 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "rfid_attendance_system";
+require '../config/config.php';
 
+$servername = "localhost";
+$username = $_db_user;
+$password = $_db_pass;
+$database = $_db_name;
 // Create connection
 $conn = new mysqli($servername, $username, $password, $database);
 
@@ -18,19 +19,15 @@ $data = json_decode($json_data);
 
 
 
-if($data === null){
+if ($data === null) {
     echo json_last_error_msg();
-}
-else {
-    
+} else {
+
     $sql = "SELECT * FROM course WHERE name LIKE '%$data->value%' OR abbr LIKE '%$data->value%' LIMIT 3";
     $result = $conn->query($sql);
     echo json_encode(mysqli_fetch_all($result, MYSQLI_ASSOC));
-
-
 }
 
 
 
 $conn->close();
-?>

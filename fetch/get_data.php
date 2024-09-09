@@ -1,9 +1,10 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "rfid_attendance_system";
+require '../config/config.php';
 
+$servername = "localhost";
+$username = $_db_user;
+$password = $_db_pass;
+$database = $_db_name;
 // Create connection
 $conn = new mysqli($servername, $username, $password, $database);
 
@@ -27,4 +28,3 @@ echo json_encode(mysqli_fetch_all($result, MYSQLI_ASSOC));
 //     echo "rfid: " . $row["rfid"] . " - Name: " . $row["fname"] . " " . $row["lname"] . "<br>";
 // }
 $conn->close();
-?>
