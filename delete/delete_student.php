@@ -14,7 +14,12 @@ if (mysqli_connect_error()) {
     echo "Error";
     die("Connection failed: " . $conn->connect_error);
 } else {
-    $sql = "SELECT COUNT(gender) as num FROM students GROUP BY gender ORDER BY gender DESC";
+    $json_data = file_get_contents("php://input");
+    $data = json_decode($json_data);
+
+    $sql = "DELETE FROM students WHERE rfid = '$data->value' ";
+    $sql2 = "DELETE FROM attendance WHERE rfid = '$data->value'";
     $result = $conn->query($sql);
-    echo json_encode(mysqli_fetch_all($result, MYSQLI_ASSOC));
+    $res2 = $conn->query($sql2);
+    echo "success";
 }
