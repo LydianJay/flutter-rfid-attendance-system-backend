@@ -23,8 +23,8 @@ if ($data === null) {
     echo json_last_error_msg();
 } else {
     $sql = "
-    REPLACE INTO students (rfid, fname, mname, lname, bday, bmonth, byear, gender, courseID) 
-    VALUES ('$data->rfid', '$data->fname', '$data->mname', '$data->lname', '$data->bday', '$data->bmonth', '$data->byear', '$data->gender', '$data->courseID')
+    REPLACE INTO students (rfid, fname, mname, lname, bday, bmonth, byear, gender, courseID, nstpID) 
+    VALUES ('$data->rfid', '$data->fname', '$data->mname', '$data->lname', '$data->bday', '$data->bmonth', '$data->byear', '$data->gender', '$data->courseID', '$data->nstpID')
     ";
     if ($conn->query($sql) === TRUE) {
         echo "Modify Success!";

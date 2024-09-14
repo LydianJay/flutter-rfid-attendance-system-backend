@@ -16,7 +16,7 @@ if (mysqli_connect_error()) {
 
 
 
-$sql = "SELECT * FROM students ORDER BY lname ASC";
+$sql = "SELECT * FROM students INNER JOIN nstp_course ON nstp_course.id = students.nstpID ORDER BY lname ASC";
 
 $result = $conn->query($sql);
 echo json_encode(mysqli_fetch_all($result, MYSQLI_ASSOC));

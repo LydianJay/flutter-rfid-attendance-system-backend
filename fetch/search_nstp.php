@@ -5,11 +5,11 @@ $servername = "localhost";
 $username = $_db_user;
 $password = $_db_pass;
 $database = $_db_name;
-
-
+// Create connection
 $conn = new mysqli($servername, $username, $password, $database);
 
 
+// Check connection
 if (mysqli_connect_error()) {
     echo "Error";
     die("Connection failed: " . $conn->connect_error);
@@ -22,15 +22,10 @@ $data = json_decode($json_data);
 if ($data === null) {
     echo json_last_error_msg();
 } else {
-    $sql = "
-    INSERT IGNORE INTO students (rfid, fname, mname, lname, bday, bmonth, byear, gender, courseID, nstpID) 
-    VALUES ('$data->rfid', '$data->fname', '$data->mname', '$data->lname', '$data->bday', '$data->bmonth', '$data->byear', '$data->gender', '$data->courseID', '$data->nstpID')
-    ";
-    if ($conn->query($sql) === TRUE) {
-        echo "Insert Success!";
-    } else {
-        echo "Insert Error!";
-    }
+
+    $sql = "SELECT * FROM nstp_course WHERE name LIKE '%$data->value%' OR abbr LIKE '%$data->value%' LIMIT 2";
+    $result = $conn->query($sql);
+    echo json_encode(mysqli_fetch_all($result, MYSQLI_ASSOC));
 }
 
 
